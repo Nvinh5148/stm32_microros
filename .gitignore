@@ -1,0 +1,48 @@
+# ====================================================
+# STM32CubeIDE / STM32 Project Git Ignore Template
+# ====================================================
+
+# 🧱 Build directories
+Debug/
+Release/
+build/
+bin/
+obj/
+out/
+
+# 🧠 IDE project settings
+.settings/
+.vscode/
+.idea/
+.cproject
+.project
+.mxproject
+*.launch
+
+# 🧰 STM32CubeMX generated backup files
+*.ioc-backup
+*.ioc-bak
+*.ioc-temp
+
+# 🪵 Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.d
+*.map
+*.lst
+
+# ⚙️ Compiler intermediate files
+*.o
+*.a
+*.elf
+*.bin
+*.hex
+
+# 📦 System-specific files
+.DS_Store
+Thumbs.db
+
+# 🧩 Misc
