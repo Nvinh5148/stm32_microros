@@ -682,9 +682,9 @@ void StartDefaultTask(void *argument)
     MotorReset(&motor1);
     MotorReset(&motor2);
     MotorAngleInit(&motor3);
-    PIDInit(&pid_vel1, 300.0f, 250.0f, 0.0f);
-    PIDInit(&pid_vel2, 300.0f, 250.0f, 0.0f);
-    PIDInit(&pid_pos, 50.0f, 10.0f, 0.0f);
+    PIDInit(&pid_vel1, 1.0f, 0.0f, 0.0f);
+    PIDInit(&pid_vel2, 300.0f, 00.0f, 00.0f);
+    PIDInit(&pid_pos, 1.0f, 0.0f, 0.0f);
     HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
     HAL_TIM_Encoder_Start(&htim1, TIM_CHANNEL_ALL);
     HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
@@ -710,10 +710,10 @@ void StartDefaultTask(void *argument)
 	      // 3) PID velocity: use target_speed (updated in callback)
 	      float duty1 = MotorPIDVelocity(&pid_vel1, &motor1, target_speed);
 	      float duty2 = MotorPIDVelocity(&pid_vel2, &motor2, target_speed);
-	      //float g_duty3 = MotorPIDPosition(&pid_pos, &motor3, target_angle);
-	      MotorSetDuty1((int)duty1);
-	      MotorSetDuty2((int)duty2);
-	      //MotorSetDuty3((int)g_duty3);
+	      float g_duty3 = MotorPIDPosition(&pid_pos, &motor3, target_angle);
+	     MotorSetDuty1((int)duty1);
+	     MotorSetDuty2((int)duty2);
+	     MotorSetDuty3((int)g_duty3);
 
 	      // 4) apply duty
 	     // MotorSetDuty(2000);

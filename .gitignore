@@ -1,22 +1,61 @@
-# STM32CubeIDE build folders
+# =======================================
+# STM32CubeIDE Git Ignore File
+# =======================================
+
+# Build folders (auto-generated)
 Debug/
 Release/
 build/
+out/
+
+# STM32CubeIDE metadata
+.settings/
+.project
+.cproject
+.loadpath
+.metadata/
+.vscode/
+
+# CubeMX generated temporary files
+*.launch
+*.log
+*.tmp
+*.bak
+*.d
+*.dep
+*.map
 *.elf
 *.bin
 *.hex
-*.o
-*.d
-*.map
-*.lst
-*.log
+*.list
+*.srec
 
-# IDE and workspace configs
-.vscode/
-.settings/
-*.launch
-*.project
-*.cproject
+# Backup or cache files
+*.swp
+*~
+*.bak
+*.old
 
-# Cache or DB files
-*.db
+# Auto-generated configuration
+*.ioc-backup
+*.cfg
+
+# Hidden system files
+.DS_Store
+Thumbs.db
+
+# =======================================
+# KEEP THESE FILES
+# =======================================
+# !Core/
+# !Drivers/
+# !Middlewares/
+# !USB_HOST/
+# !micro_ros_stm32cubemx_utils/
+# !*.ioc
+# !*.ld
+# !*.h
+# !*.c
+# !*.cpp
+# !*.hpp
+# !*.md

@@ -14,23 +14,26 @@
 
 extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
+
 
 void MotorReset(Motor_t *tmotor)
 {
-tmotor->counter = 0;
-tmotor->position = 0.0f;
-tmotor->velocity = 0.0f;
-tmotor->setPoint = 0.0f;
+	tmotor->counter = 0;
+	tmotor->position = 0.0f;
+	tmotor->velocity = 0.0f;
+	tmotor->setPoint = 0.0f;
+	tmotor->last_count = 0;
 }
 void MotorAngleInit(MOTOR_t *tMOTOR)
 {
-	tMOTOR->cnter = 0;
-	tMOTOR->POS = 0.0f;
-	tMOTOR->Taget_angle = 0.0f;
+		tMOTOR->cnter = 0;
+		tMOTOR->POS = 0.0f;
+		tMOTOR->Taget_angle = 0.0f;
+		tMOTOR->last_cnt = __HAL_TIM_GET_COUNTER(&htim4);
 }
 void ReadEncoder(Motor_t *tmotor, TIM_HandleTypeDef *htim)
 {
-    static int32_t last_count = 0;
     int32_t count = __HAL_TIM_GET_COUNTER(htim);
     int32_t diff = count - tmotor->last_count;
 
@@ -51,12 +54,12 @@ void ReadEncoder(Motor_t *tmotor, TIM_HandleTypeDef *htim)
 void ReadEncoder_angular(MOTOR_t *tMOTOR, TIM_HandleTypeDef *htim)
 {
     int32_t cnt = __HAL_TIM_GET_COUNTER(htim);
-        int32_t DIFF = cnt - tMOTOR->last_cnt;
+    int32_t DIFF = cnt - tMOTOR->last_cnt;
     if (DIFF > 32768)
             DIFF -= 65536;
         else if (DIFF < -32768)
             DIFF += 65536;
-    float K = 30.0f / 16000.0f;
+    float K = 79.0f / 43000.0f;
     tMOTOR->cnter = cnt;
     tMOTOR->POS += (float)DIFF*K ;  //position
     tMOTOR->last_cnt = cnt;
@@ -132,7 +135,7 @@ float MotorPIDPosition(PID_CONTROL_t *PID_Ctrl , MOTOR_t *tMOTOR, float pos_set)
 			pos_set = ANGLE_LEFT;
 		}
 	tMOTOR->Taget_angle = pos_set;
-	float g_duty = PIDCompute(PID_Ctrl, tMOTOR->Taget_angle, tMOTOR->POS, 0.03f);
+	float g_duty = PIDCompute(PID_Ctrl, tMOTOR->Taget_angle, tMOTOR->POS, 0.01f);
 	return g_duty;
 }
 
